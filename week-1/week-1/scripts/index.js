@@ -23,19 +23,13 @@ window.addEventListener('scroll', () => {
   collections.style.transform = `translateX(${1400 - window.scrollY * 2.4}px)`;
 });
 
-const createSampleProduct = () => ({
-  id: 1,
-  nameI18n: '지고한 열망',
-  name: 'Sublime aspiration',
-  description: '이 선언의 어떠한 규정도 어떤 국가, 집단 또는 개인에게 이 선언에 규정된 어떠한 권리와 자유를 파괴하기 위한 활동에 가담하거나 또는 행위를 할 수 있는 권리가 있는 것으로 해석되어서는 아니된다',
-  image: 'https://picsum.photos/seed/comento-js-react/200/300',
-  category: 'collection',
-});
+const fetchProducts = (productCategory = 'collection') =>
+    RAW_PRODUCTS.filter(({ category }) => category === productCategory);
 
-const createProductCard = ({ id, nameI18n, name, description }) => `
+const createProductCard = ({ id, nameI18n, name, description, image }) => `
   <div id=${`product${id}`} class="product-card">
     <div class="flex-1">
-      <img src="../resources/images/hero.jpg" alt="">
+      <img src="${image}" alt="">
     </div>
     <div class="product-card-text">
       <div>제품명 Product Name ${nameI18n} ${name}</div>
@@ -45,18 +39,13 @@ const createProductCard = ({ id, nameI18n, name, description }) => `
 `;
 
 const collectionCards = (() => {
-  const arr = [];
-  arr.length = 16;
-  arr.fill(createSampleProduct());
-  return arr.map(createProductCard).join('');
+  return fetchProducts('collection').map(createProductCard).join('');
 })();
+
 collections.innerHTML = collectionCards;
 
 const seasonalCards = (() => {
-  const arr = [];
-  arr.length = 16;
-  arr.fill(createSampleProduct());
-  return arr.map(createProductCard).join('');
+  return fetchProducts('seasonal').map(createProductCard).join('');
 })();
 seasonal.innerHTML = seasonalCards;
 
