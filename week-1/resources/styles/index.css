@@ -187,6 +187,14 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 80px;
   font-size: 18px;
 }
+.product-card-image, .product-card-image > img {
+  height: 100%;
+}
+.product-card-image > img {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
 #seasonalProducts {
   display: flex;
   flex-flow: wrap;

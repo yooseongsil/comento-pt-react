@@ -28,7 +28,7 @@ const fetchProducts = (productCategory = 'collection') =>
 
 const createProductCard = ({ id, nameI18n, name, description, image }) => `
   <div id=${`product${id}`} class="product-card">
-    <div class="flex-1">
+    <div class="product-card-image flex-1">
       <img src="${image}" alt="">
     </div>
     <div class="product-card-text">
