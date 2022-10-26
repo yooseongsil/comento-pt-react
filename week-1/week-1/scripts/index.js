@@ -32,7 +32,7 @@ const createProductCard = ({ id, nameI18n, name, description, image }) => `
       <img src="${image}" alt="">
     </div>
     <div class="product-card-text">
-      <div>제품명 Product Name ${nameI18n} ${name}</div>
+      <div>제품명 Product Name <br />${nameI18n} ${name}</div>
       <div class="product-card-description">설명 Description <br/> ${description}</div>
     </div>
   </div>
