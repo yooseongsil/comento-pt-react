@@ -34,8 +34,8 @@ window.addEventListener('scroll', () => {
   collections.style.transform = `translateX(${1400 - window.scrollY * 2.4}px)`;
 });
 
-const fetchProducts = (productCategory = 'collection') =>
-    RAW_PRODUCTS.filter(({ category }) => category === productCategory);
+const createProductsBy = (products, productCategory = 'collection') =>
+  products.filter(({ category }) => category === productCategory);
 
 const getLanguage = () => {
   return (navigator.language || navigator.userLanguage) === 'ko-KR' ? 'ko' : 'en';
@@ -60,13 +60,13 @@ const createProductCard = ({ id, nameI18n, name, description, image }) => `
 `;
 
 const collectionCards = (() => {
-  return fetchProducts('collection').map(createProductCard).join('');
+  return createProductsBy(RAW_PRODUCTS, 'collection').map(createProductCard).join('');
 })();
 
 collections.innerHTML = collectionCards;
 
 const seasonalCards = (() => {
-  return fetchProducts('seasonal').map(createProductCard).join('');
+  return createProductsBy(RAW_PRODUCTS, 'seasonal').map(createProductCard).join('');
 })();
 seasonal.innerHTML = seasonalCards;
 
