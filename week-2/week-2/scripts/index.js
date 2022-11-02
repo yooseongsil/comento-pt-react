@@ -24,6 +24,22 @@ window.addEventListener('scroll', () => {
   collections.style.transform = `translateX(${1400 - window.scrollY * 2.4}px)`;
 });
 
+let data = {
+  products,
+  category: null,
+  container: null,
+};
+
+const handler = {
+  set(target, prop, value) {
+    target[prop] = value;
+
+    return true;
+  }
+}
+
+const proxy = new Proxy(data, handler);
+
 const createProductCard = ({ id, nameI18n, image, name, description }) => `
   <div id=${`product${id}`} class="product-card">
     <div class="flex-1">
@@ -36,15 +52,20 @@ const createProductCard = ({ id, nameI18n, image, name, description }) => `
   </div>
 `;
 
-collections.innerHTML = products
-  .filter((product) => product.category === 'collection')
+function render() {
+  data.container.innerHTML = data.products
+  .filter((product) => product.category === data.category)
   .map(createProductCard)
   .join('');
+}
 
-seasonal.innerHTML = products
-  .filter((product) => product.category === 'seasonal')
-  .map(createProductCard)
-  .join('');
+proxy.category = 'collection';
+proxy.container = collections;
+render();
+
+proxy.category = 'seasonal';
+proxy.container = seasonal;
+render();
 
 [...seasonalProducts.children].forEach((el, index) => {
   new IntersectionObserver((entries) => {
