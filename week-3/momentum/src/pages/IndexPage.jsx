@@ -1,9 +1,51 @@
-import { Component } from 'react';
+import { Component, createRef } from 'react';
+import PRODUCTS from 'data/products.json';
 import Banner from 'components/Banner';
+import ProductCard from '../components/ProductCard';
 
 class IndexPage extends Component {
+  constructor(props) {
+    super(props);
+    this.handler = null;
+    this.observer = [];
+    this.collectionsRef = createRef();
+    this.seasonalRef = createRef();
+  }
+
   componentDidMount() {
     document.title = 'MOMENTUM :: Memorial Jewelry';
+
+    this.handler = () => {
+      this.collectionsRef.current.style.transform = `translateX(${1400 - window.scrollY * 2.4}px)`;
+    };
+    window.addEventListener('scroll', this.handler);
+
+    [...this.seasonalRef.current.children].forEach((el, index) => {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.style.opacity = 1;
+              entry.target.style.transform = 'translateY(0)';
+            }, index * 40);
+          } else {
+            setTimeout(() => {
+              entry.target.style = '';
+            }, index * 40);
+          }
+        });
+      });
+      this.observer.push(observer);
+      observer.observe(el);
+    });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handler);
+
+    this.observer.forEach(el => {
+      el.disconnect();
+    });
   }
 
   render() {
@@ -22,7 +64,22 @@ class IndexPage extends Component {
           </p>
         </section>
         <section id="collectionProductsRoot">
-          <section id="collectionProducts" className="flex flex-center" />
+          <section id="collectionProducts" ref={this.collectionsRef} className="flex flex-center">
+            {PRODUCTS.filter(product => product.category === 'collection').map(
+              ({ id, nameI18n, image, name, description }) => {
+                return (
+                  <ProductCard
+                    key={`product-card-collection-${id}`}
+                    id={id}
+                    nameI18n={nameI18n}
+                    image={image}
+                    name={name}
+                    description={description}
+                  />
+                );
+              }
+            )}
+          </section>
         </section>
         <section className="section-title container">
           <h1 className="text-center">SEASONAL</h1>
@@ -35,7 +92,22 @@ class IndexPage extends Component {
             포함한다.
           </p>
         </section>
-        <section id="seasonalProducts" />
+        <section id="seasonalProducts" ref={this.seasonalRef}>
+          {PRODUCTS.filter(product => product.category === 'seasonal').map(
+            ({ id, nameI18n, image, name, description }) => {
+              return (
+                <ProductCard
+                  key={`product-card-seasonal-${id}`}
+                  id={id}
+                  nameI18n={nameI18n}
+                  image={image}
+                  name={name}
+                  description={description}
+                />
+              );
+            }
+          )}
+        </section>
       </div>
     );
   }
