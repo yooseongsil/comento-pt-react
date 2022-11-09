@@ -1,9 +1,12 @@
 import Layout from './layouts/Layout';
+import IndexPage from './pages/IndexPage';
 
 function App() {
   return (
     <div className="App">
-      <Layout></Layout>
+      <Layout>
+        <IndexPage />
+      </Layout>
     </div>
   );
 }
