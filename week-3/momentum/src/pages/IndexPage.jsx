@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import Banner from '../components/Banner';
+import Banner from 'components/Banner';
 
 class IndexPage extends Component {
   componentDidMount() {
