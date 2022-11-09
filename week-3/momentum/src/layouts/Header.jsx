@@ -14,7 +14,6 @@ class Header extends Component {
       } else {
         this.headerRef.current.style = '';
       }
-      // typo.style.top = `-${window.scrollY * 1.5}px`;
       // collections.style.transform = `translateX(${1400 - window.scrollY * 2.4}px)`;
     };
     window.addEventListener('scroll', this.handler);
