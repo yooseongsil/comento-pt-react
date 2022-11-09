@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import hero from 'assets/images/hero.jpg';
 
 class Banner extends Component {
   render() {
@@ -6,7 +7,7 @@ class Banner extends Component {
       <section id="hero" className="flex">
         <section id="heroImage" className="flex-1">
           <div className="overlay" />
-          <img src="../assets/images/hero.jpg" height="600px" width="100%" alt="" />
+          <img src={hero} height="600px" width="100%" alt="" />
         </section>
         <section id="heroText" className="flex-center">
           <div>
