@@ -1,7 +1,7 @@
 import Layout from 'layouts/Layout';
 import IndexPage from 'pages/IndexPage';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Layout>
@@ -9,6 +9,6 @@ function App() {
       </Layout>
     </div>
   );
-}
+};
 
 export default App;

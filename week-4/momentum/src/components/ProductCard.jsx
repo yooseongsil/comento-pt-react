@@ -1,27 +1,22 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class ProductCard extends Component {
-  render() {
-    const { id, nameI18n, image, name, description } = this.props;
-
-    return (
-      <div id={`product${id}`} className="product-card">
-        <div className="flex-1">
-          <img src={image} alt={name} className="product-card-image" />
+const ProductCard = ({ id, nameI18n, image, name, description }) => {
+  return (
+    <div id={`product${id}`} className="product-card">
+      <div className="flex-1">
+        <img src={image} alt={name} className="product-card-image" />
+      </div>
+      <div className="product-card-text">
+        <div>
+          제품명 Product Name ${nameI18n} ${name}
         </div>
-        <div className="product-card-text">
-          <div>
-            제품명 Product Name ${nameI18n} ${name}
-          </div>
-          <div className="product-card-description">
-            설명 Description <br /> ${description}
-          </div>
+        <div className="product-card-description">
+          설명 Description <br /> ${description}
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 ProductCard.propTypes = {
   id: PropTypes.string,
